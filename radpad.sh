@@ -4,7 +4,9 @@
 
 # There may be multiple containers that match the pattern
 # so only query for the first match
-export DOCKER_CONTAINER="`docker ps | grep radpad/ | awk 'NR==1{ print $1 }'`"
+#export DOCKER_CONTAINER="`docker ps | grep radpad/ | awk 'NR==1{ print $1 }'`"
+CONTAINER_REGEX='radpad\/(dev|stg|prod)\-radpad\-(api|job|web)\:'
+export DOCKER_CONTAINER="`docker ps | egrep ${CONTAINER_REGEX} | awk 'NR==1{ print $1 }'`"
 
 alias rpexec="docker exec -it $DOCKER_CONTAINER"
 alias rpexec_notty="docker exec $DOCKER_CONTAINER"
